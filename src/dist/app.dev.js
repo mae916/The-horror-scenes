@@ -18,7 +18,7 @@ app.set("views", __dirname + "/views");
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 
-_dotenv["default"].config(); // 박스오피스 API
+_dotenv["default"].config(); // 박스오피스 API(영화진흥위원회)
 
 
 app.get("/", function _callee(req, res) {
@@ -78,6 +78,7 @@ app.get("/", function _callee(req, res) {
                       naverList[i] = response.data.items[0];
                       naverList[i].title = response.data.items[0].title.replace(reg, "");
                       naverList[i].director = response.data.items[0].director.replace("|", "");
+                      naverList[i].image = response.data.items[0].image.replace("mit110", "mit500");
                       naverList[i].rank = boxOList[i].rank; // console.log(boxOList);
                       // console.log(naverList);
                       // for (let j = 0; j < naverList.lenth; j++) {

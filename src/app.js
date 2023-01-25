@@ -14,7 +14,7 @@ app.set("view engine", "html");
 
 dotenv.config();
 
-// 박스오피스 API
+// 박스오피스 API(영화진흥위원회)
 
 app.get("/", async (req, res) => {
   let boxOList = [];
@@ -66,6 +66,10 @@ app.get("/", async (req, res) => {
         naverList[i].director = response.data.items[0].director.replace(
           "|",
           ""
+        );
+        naverList[i].image = response.data.items[0].image.replace(
+          "mit110",
+          "mit500"
         );
         naverList[i].rank = boxOList[i].rank;
 
