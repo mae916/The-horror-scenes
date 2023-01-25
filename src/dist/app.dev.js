@@ -12,7 +12,7 @@ var app = (0, _express["default"])();
 var PORT = 4000;
 app.use("/", _express["default"]["static"]("src")); // 정적 경로 지정 어려움..
 
-app.use("/", _express["default"]["static"]("video")); //여기도  //html 파일에서 불러올때 경로가 src나, video 부터 써주면 안됨 그다음부터 써줘야함
+app.use("/", _express["default"]["static"]("video")); //여기도  //html 파일에서 불러올때 경로가 src나, video 부터 써주면 안됨 그다음 경로부터 써줘야함
 
 app.set("views", __dirname + "/views");
 app.engine("html", require("ejs").renderFile);
@@ -22,60 +22,113 @@ _dotenv["default"].config(); // 박스오피스 API
 
 
 app.get("/", function _callee(req, res) {
-  var list, _loop, i;
+  var boxOList, naverList, resultList, today, year, month, date, day, _loop, i;
 
-  return regeneratorRuntime.async(function _callee$(_context) {
+  return regeneratorRuntime.async(function _callee$(_context2) {
     while (1) {
-      switch (_context.prev = _context.next) {
+      switch (_context2.prev = _context2.next) {
         case 0:
-          list = [];
-          _context.next = 3;
+          boxOList = [];
+          naverList = [];
+          resultList = [];
+          today = new Date();
+          year = String(today.getFullYear()); // 년도
+
+          month = 0 + String(today.getMonth() + 1); // 월
+
+          date = String(today.getDate() - 1); // 날짜(하루전)
+
+          day = year + month + date;
+          _context2.next = 10;
           return regeneratorRuntime.awrap((0, _axios["default"])({
             method: "get",
-            url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json",
+            url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
             params: {
               key: process.env.BOXOFFICE_KEY,
-              targetDt: 20230122
+              targetDt: day
             }
           }).then(function (response) {
-            var boxOList = response.data.boxOfficeResult.weeklyBoxOfficeList;
-            list = boxOList;
+            boxOList = response.data.boxOfficeResult.dailyBoxOfficeList;
           })["catch"](function (error) {
             console.log("실패", error);
           }));
 
-        case 3:
+        case 10:
           _loop = function _loop(i) {
-            // 네이버 영화 검색 API
-            // let foundMatch = `/^${list[i].movieNm}$/`.test(list[i].movieNm);
-            (0, _axios["default"])({
-              method: "get",
-              url: "https://openapi.naver.com/v1/search/movie.json",
-              params: {
-                query: list[i].movieNm
-              },
-              headers: {
-                "X-Naver-Client-Id": process.env.NAVER_ID,
-                "X-Naver-Client-Secret": process.env.NAVER_SECRET
+            return regeneratorRuntime.async(function _loop$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return regeneratorRuntime.awrap((0, _axios["default"])({
+                      method: "get",
+                      url: "https://openapi.naver.com/v1/search/movie.json",
+                      params: {
+                        query: boxOList[i].movieNm // query: boxOList[i].movieNm,
+
+                      },
+                      headers: {
+                        "X-Naver-Client-Id": process.env.NAVER_ID,
+                        "X-Naver-Client-Secret": process.env.NAVER_SECRET
+                      }
+                    }).then(function (response) {
+                      var reg = /<[^>]*>?/g;
+                      naverList[i] = response.data.items[0]; // console.log(naverList);
+
+                      naverList[i] = response.data.items[0];
+                      naverList[i].title = response.data.items[0].title.replace(reg, "");
+                      naverList[i].director = response.data.items[0].director.replace("|", "");
+                      naverList[i].rank = boxOList[i].rank; // console.log(boxOList);
+                      // console.log(naverList);
+                      // for (let j = 0; j < naverList.lenth; j++) {
+                      //   naverList[j] = String.replace(reg, naverList[j].title);
+                      //   if (naverList[j].title == boxOList[i].movieNm) {
+                      //     resultList[j].title = naverList[j].title;
+                      //     resultList[j].image = naverList[j].image;
+                      //     resultList[j].director = naverList[j].director;
+                      //     resultList[j].userRating = naverList[j].userRating;
+                      //   } else {
+                      //     continue;
+                      //   }
+                      // }
+                    })["catch"](function (error) {
+                      console.log("실패", error);
+                    }));
+
+                  case 2:
+                  case "end":
+                    return _context.stop();
+                }
               }
-            }).then(function (response) {
-              if (response.data.items[0].title == list[i].movieNm) {}
-            })["catch"](function (error) {
-              console.log("실패", error);
             });
           };
 
-          for (i = 0; i < list.length; i++) {
-            _loop(i);
+          i = 0;
+
+        case 12:
+          if (!(i < boxOList.length)) {
+            _context2.next = 18;
+            break;
           }
 
-          return _context.abrupt("return", res.render("index.ejs", {
-            list: list
+          _context2.next = 15;
+          return regeneratorRuntime.awrap(_loop(i));
+
+        case 15:
+          i++;
+          _context2.next = 12;
+          break;
+
+        case 18:
+          // console.log(boxOList);
+          console.log(naverList);
+          return _context2.abrupt("return", res.render("index.ejs", {
+            naverList: naverList
           }));
 
-        case 6:
+        case 20:
         case "end":
-          return _context.stop();
+          return _context2.stop();
       }
     }
   });

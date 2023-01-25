@@ -18,7 +18,7 @@
   <body>
     <main>
       <section class="left">
-        <h1 class="title">BEST HORROR SCENES</h1>
+        <h1 class="title">BEST<br />MOVIE SCENES</h1>
         <div class="intro">
           <p>
             An ever growing collection featuring some of the best scenes in
@@ -31,13 +31,13 @@
             aren't necessarily “horror” but have elements or threads of horror.
           </p>
           <div class="links">
-            <a href="#">Newsletter</a>
-            <a href="#">Suggest a Scene</a>
-            <a href="#">YouTube</a>
-            <a href="#">Twitter</a>
-            <a href="#">Contact</a>
-            <a href="#">RSS</a>
-            <a href="#">Letterboxd</a>
+            <a href="">Newsletter</a>
+            <a href="">Suggest a Scene</a>
+            <a href="">YouTube</a>
+            <a href="">Twitter</a>
+            <a href="">Contact</a>
+            <a href="">RSS</a>
+            <a href="">Letterboxd</a>
           </div>
           <p>
             Best Horror Scenes is a love letter to the Horror film genre by
@@ -88,22 +88,25 @@
         <!-- 상단 고정창 end -->
         <!-- 본문 start -->
         <div class="movie_info">
-          <h2>BOX OFFICE WEEKLY BEST</h2>
-          <%for(let i = 0; i < list.length; i++){%>
+          <h1>BOX OFFICE WEEKLY BEST</h1>
+          <%for(let i = 0; i < naverList.length; i++){%>
           <article>
             <div class="tit">
-              <h2 class="movieName" id="movieName"><%= list[i].movieNm %></h2>
+              <h2 class="movieName" id="movieName">
+                <%= naverList[i].title %>
+              </h2>
               <span
                 >Directed by&nbsp;<span class="director" id="director"
-                  >감독명</span
+                  ><%= naverList[i].director %></span
                 ></span
               >
             </div>
-            <div class="video_box">
-              <div class="tag" id="tag"><%= list[i].rank %></div>
-              <video src="/SampleVideo_1280x720_1mb.mp4"></video>
-            </div>
+
             <div class="main_txt">
+              <div class="video_box">
+                <div class="tag" id="tag"><%= naverList[i].rank %></div>
+                <img src="<%= naverList[i].image %>" />
+              </div>
               <div class="main_txt_wrap">
                 <p>
                   It’s not Horror, it’s Haneke.™ I dare you to watch this film
@@ -123,19 +126,21 @@
                   sperm-soaked tissue.” I’m just glad we have someone like
                   Haneke to ask the tough questions.
                 </p>
-                <div class="bottom">
-                  <span>ㅡ B</span>
-                  <span class="rate"
-                    >My rating: <span>8</span>/<span>10</span></span
-                  >
+                <div class="rate">
+                  User rating:&nbsp;<span><%= naverList[i].userRating %></span
+                  >/<span>10&nbsp;(네이버 평점)</span>
                 </div>
               </div>
             </div>
             <div class="cmt">
-              <span>No comments</span>
-              <span><i class="xi-speech"></i>Leave a Comment</span>
+              <span class="view">No comments</span>
+              <span class="write"
+                ><i class="xi-speech"></i>&nbsp;<span>Leave a Comment</span
+                >&nbsp;</span
+              >
             </div>
           </article>
+          <div class="gradient"></div>
           <%}%>
         </div>
       </section>
