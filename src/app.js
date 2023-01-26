@@ -60,8 +60,6 @@ app.get("/", async (req, res) => {
       .then(function (response) {
         const reg = /<[^>]*>?/g;
         naverList[i] = response.data.items[0];
-        // console.log(naverList);
-        naverList[i] = response.data.items[0];
         naverList[i].title = response.data.items[0].title.replace(reg, "");
         naverList[i].director = response.data.items[0].director.replace(
           "|",
@@ -72,20 +70,6 @@ app.get("/", async (req, res) => {
           "mit500"
         );
         naverList[i].rank = boxOList[i].rank;
-
-        // console.log(boxOList);
-        // console.log(naverList);
-        // for (let j = 0; j < naverList.lenth; j++) {
-        //   naverList[j] = String.replace(reg, naverList[j].title);
-        //   if (naverList[j].title == boxOList[i].movieNm) {
-        //     resultList[j].title = naverList[j].title;
-        //     resultList[j].image = naverList[j].image;
-        //     resultList[j].director = naverList[j].director;
-        //     resultList[j].userRating = naverList[j].userRating;
-        //   } else {
-        //     continue;
-        //   }
-        // }
       })
       .catch(function (error) {
         console.log("실패", error);
