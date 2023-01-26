@@ -14,75 +14,56 @@ app.set("view engine", "html");
 
 dotenv.config();
 
-// 박스오피스 API(영화진흥위원회)
-
 app.get("/", async (req, res) => {
-  let boxOList = [];
-  let naverList = [];
-  let resultList = [];
+  let list = [];
 
-  let today = new Date();
-  let year = String(today.getFullYear()); // 년도
-  let month = 0 + String(today.getMonth() + 1); // 월
-  let date = String(today.getDate() - 1); // 날짜(하루전)
-  let day = year + month + date;
-
+  // Kmdb API
   await axios({
     method: "get",
-    url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+    url: "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp",
     params: {
-      key: process.env.BOXOFFICE_KEY,
-      targetDt: day,
+      collection: "kmdb_new2",
+      ServiceKey: process.env.KMDB_KEY,
+      genre: "공포",
+      detail: "Y",
+      sort: "prodYear,1",
+      listCount: 30,
     },
   })
     .then(function (response) {
-      boxOList = response.data.boxOfficeResult.dailyBoxOfficeList;
+      list = response.data.Data[0].Result;
     })
     .catch(function (error) {
       console.log("실패", error);
     });
 
-  // 네이버 영화 검색 API
-  for (let i = 0; i < boxOList.length; i++) {
-    // let foundMatch = `/^${boxOList[i].movieNm}$/`.test(boxOList[i].movieNm);
-    await axios({
-      method: "get",
-      url: "https://openapi.naver.com/v1/search/movie.json",
-      params: {
-        query: boxOList[i].movieNm,
-        // query: boxOList[i].movieNm,
-      },
-      headers: {
-        "X-Naver-Client-Id": process.env.NAVER_ID,
-        "X-Naver-Client-Secret": process.env.NAVER_SECRET,
-      },
-    })
-      .then(function (response) {
-        const reg = /<[^>]*>?/g;
-        naverList[i] = response.data.items[0];
-        naverList[i].title = response.data.items[0].title.replace(reg, "");
-        naverList[i].director = response.data.items[0].director.replace(
-          "|",
-          ""
-        );
-        naverList[i].image = response.data.items[0].image.replace(
-          "mit110",
-          "mit500"
-        );
-        naverList[i].rank = boxOList[i].rank;
-      })
-      .catch(function (error) {
-        console.log("실패", error);
-      });
-  }
-  // console.log(boxOList);
-  console.log(naverList);
-  return res.render("index.ejs", { naverList });
-});
+  //API에서 가져온 db 가공 후 list에 넣기
+  for (let i = 0; i < list.length; i++) {
+    list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
+    list[i].director = list[i].directors.director[0].directorNm;
+    list[i].poster = list[i].posters
+      .replace("thm/02", "poster")
+      .replace("tn_", "")
+      .replace(".jpg", "_01.jpg");
 
-// app.get("/login", (req, res) => {
-//   res.send("LOGIN");
-// });
+    if (list[i].repRlsDate !== "") {
+      list[i].repRlsDate = "(" + list[i].repRlsDate.substring(0, 4) + ")";
+    }
+
+    const arr = list[i].posters.split("|");
+    list[i].poster = arr[0];
+  }
+
+  // 이미지가 없는 경우 삭제
+  for (var j = 0; j < list.length; j++) {
+    if (list[j].posters === "") {
+      list.splice(j, 1);
+      j--;
+    }
+  }
+
+  return res.render("index.ejs", { list });
+});
 
 const handleListening = () => {
   console.log(`http://localhost:${PORT}`);

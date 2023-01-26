@@ -18,110 +18,69 @@ app.set("views", __dirname + "/views");
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 
-_dotenv["default"].config(); // 박스오피스 API(영화진흥위원회)
-
+_dotenv["default"].config();
 
 app.get("/", function _callee(req, res) {
-  var boxOList, naverList, resultList, today, year, month, date, day, _loop, i;
-
-  return regeneratorRuntime.async(function _callee$(_context2) {
+  var list, i, arr, j;
+  return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
-      switch (_context2.prev = _context2.next) {
+      switch (_context.prev = _context.next) {
         case 0:
-          boxOList = [];
-          naverList = [];
-          resultList = [];
-          today = new Date();
-          year = String(today.getFullYear()); // 년도
+          list = []; // Kmdb API
 
-          month = 0 + String(today.getMonth() + 1); // 월
-
-          date = String(today.getDate() - 1); // 날짜(하루전)
-
-          day = year + month + date;
-          _context2.next = 10;
+          _context.next = 3;
           return regeneratorRuntime.awrap((0, _axios["default"])({
             method: "get",
-            url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+            url: "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp",
             params: {
-              key: process.env.BOXOFFICE_KEY,
-              targetDt: day
+              collection: "kmdb_new2",
+              ServiceKey: process.env.KMDB_KEY,
+              genre: "공포",
+              detail: "Y",
+              sort: "prodYear,1",
+              listCount: 30
             }
           }).then(function (response) {
-            boxOList = response.data.boxOfficeResult.dailyBoxOfficeList;
+            list = response.data.Data[0].Result;
           })["catch"](function (error) {
             console.log("실패", error);
           }));
 
-        case 10:
-          _loop = function _loop(i) {
-            return regeneratorRuntime.async(function _loop$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _context.next = 2;
-                    return regeneratorRuntime.awrap((0, _axios["default"])({
-                      method: "get",
-                      url: "https://openapi.naver.com/v1/search/movie.json",
-                      params: {
-                        query: boxOList[i].movieNm // query: boxOList[i].movieNm,
+        case 3:
+          //API에서 가져온 db 가공 후 list에 넣기
+          for (i = 0; i < list.length; i++) {
+            list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
 
-                      },
-                      headers: {
-                        "X-Naver-Client-Id": process.env.NAVER_ID,
-                        "X-Naver-Client-Secret": process.env.NAVER_SECRET
-                      }
-                    }).then(function (response) {
-                      var reg = /<[^>]*>?/g;
-                      naverList[i] = response.data.items[0];
-                      naverList[i].title = response.data.items[0].title.replace(reg, "");
-                      naverList[i].director = response.data.items[0].director.replace("|", "");
-                      naverList[i].image = response.data.items[0].image.replace("mit110", "mit500");
-                      naverList[i].rank = boxOList[i].rank;
-                    })["catch"](function (error) {
-                      console.log("실패", error);
-                    }));
+            list[i].director = list[i].directors.director[0].directorNm;
+            list[i].poster = list[i].posters.replace("thm/02", "poster").replace("tn_", "").replace(".jpg", "_01.jpg");
 
-                  case 2:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            });
-          };
+            if (list[i].repRlsDate !== "") {
+              list[i].repRlsDate = "(" + list[i].repRlsDate.substring(0, 4) + ")";
+            }
 
-          i = 0;
+            arr = list[i].posters.split("|");
+            list[i].poster = arr[0];
+          } // 이미지가 없는 경우 삭제
 
-        case 12:
-          if (!(i < boxOList.length)) {
-            _context2.next = 18;
-            break;
+
+          for (j = 0; j < list.length; j++) {
+            if (list[j].posters === "") {
+              list.splice(j, 1);
+              j--;
+            }
           }
 
-          _context2.next = 15;
-          return regeneratorRuntime.awrap(_loop(i));
-
-        case 15:
-          i++;
-          _context2.next = 12;
-          break;
-
-        case 18:
-          // console.log(boxOList);
-          console.log(naverList);
-          return _context2.abrupt("return", res.render("index.ejs", {
-            naverList: naverList
+          return _context.abrupt("return", res.render("index.ejs", {
+            list: list
           }));
 
-        case 20:
+        case 6:
         case "end":
-          return _context2.stop();
+          return _context.stop();
       }
     }
   });
-}); // app.get("/login", (req, res) => {
-//   res.send("LOGIN");
-// });
+});
 
 var handleListening = function handleListening() {
   console.log("http://localhost:".concat(PORT));

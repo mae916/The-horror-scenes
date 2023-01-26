@@ -1,12 +1,17 @@
 "use strict";
 
-// 검색 창
 $(function () {
-  $("#search").click(function () {
-    $("#searchMenu").show();
+  $("#filter").click(function () {
+    $("#filterMenu").show();
+    $("#sortMenu").hide();
+  });
+  $("#sort").click(function () {
+    $("#sortMenu").show();
+    $("#filterMenu").hide();
   });
   $(".xi-close").click(function () {
-    $("#searchMenu").hide();
+    $("#filterMenu").hide();
+    $("#sortMenu").hide();
   });
 }); // nav 상단 고정
 // $(function () {
