@@ -9,6 +9,14 @@ body {
   margin: 0;
 }
 
+h4 {
+  margin: 0;
+}
+
+.scrollLock {
+  overflow: hidden;
+}
+
 /** 공통 끝 */
 main {
   display: flex;
@@ -94,24 +102,24 @@ main {
   background-color: rgba(231, 71, 60, 0.95);
   display: none;
   z-index: 2;
-  padding: 7% 3% 3% 13%;
-  position: absolute;
-  width: 100%;
+  padding: 10vh 144px;
+  width: 67%;
   height: 100%;
+  position: fixed;
   top: 0;
+  overflow: scroll;
 }
 .right .filter_menu .xi-close,
 .right .sort_menu .xi-close {
+  position: absolute;
   cursor: pointer;
+  right: 30px;
+  top: 30px;
 }
-.right .filter_menu .s_head,
-.right .sort_menu .s_head {
-  display: flex;
-  justify-content: space-between;
-}
-.right .filter_menu .s_head h4,
-.right .sort_menu .s_head h4 {
+.right .filter_menu h4,
+.right .sort_menu h4 {
   color: #76150f;
+  padding: 12px 0 6px;
 }
 .right .filter_menu ul li,
 .right .sort_menu ul li {
@@ -215,14 +223,14 @@ main {
   overflow: hidden;
   word-break: keep-all;
 }
-.right .movie_info article .main_txt .main_txt_wrap .rate {
+.right .movie_info article .main_txt .main_txt_wrap .keywords {
   margin-top: 60px;
   display: flex;
   justify-content: flex-end;
   color: #831d16;
   font-weight: 600;
 }
-.right .movie_info article .main_txt .main_txt_wrap .rate * {
+.right .movie_info article .main_txt .main_txt_wrap .keywords * {
   color: #831d16;
 }
 .right .movie_info article .cmt {

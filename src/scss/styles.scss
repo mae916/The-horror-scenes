@@ -8,6 +8,14 @@ body {
   margin: 0;
 }
 
+h4 {
+  margin: 0;
+}
+
+.scrollLock {
+  overflow: hidden;
+}
+
 /** 공통 끝 */
 
 main {
@@ -94,20 +102,21 @@ main {
     background-color: rgb(231, 71, 60, 0.95);
     display: none;
     z-index: 2;
-    padding: 7% 3% 3% 13%;
-    position: absolute;
-    width: 100%;
+    padding: 10vh 144px;
+    width: 67%;
     height: 100%;
+    position: fixed;
     top: 0;
+    overflow: scroll;
     .xi-close {
+      position: absolute;
       cursor: pointer;
+      right: 30px;
+      top: 30px;
     }
-    .s_head {
-      display: flex;
-      justify-content: space-between;
-      h4 {
-        color: #76150f;
-      }
+    h4 {
+      color: #76150f;
+      padding: 12px 0 6px;
     }
     ul {
       li {
@@ -213,7 +222,7 @@ main {
             overflow: hidden;
             word-break: keep-all;
           }
-          .rate {
+          .keywords {
             margin-top: 60px;
             display: flex;
             justify-content: flex-end;

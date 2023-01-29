@@ -63,39 +63,35 @@
         <div id="filterMenu" class="filter_menu">
           <div class="s_head">
             <h4>FILTER BY</h4>
-            <i class="xi-close"></i>
+            <i class="xi-close xi-2x"></i>
           </div>
           <ul>
             <li>
               <span class="category">everything</span><span class="cnt">0</span>
             </li>
             <li>
-              <span class="category">2000s</span><span class="cnt">0</span>
+              <span class="category" onclick="kmdbAPI(item)">Korea</span
+              ><span class="cnt">0</span>
+            </li>
+            <li><span class="category">USA</span><span class="cnt">0</span></li>
+            <li><span class="category">UK</span><span class="cnt">0</span></li>
+            <li>
+              <span class="category">Japan</span><span class="cnt">0</span>
             </li>
             <li>
-              <span class="category">1990s</span><span class="cnt">0</span>
-            </li>
-            <li>
-              <span class="category">1980s</span><span class="cnt">0</span>
-            </li>
-            <li>
-              <span class="category">1970s</span><span class="cnt">0</span>
+              <span class="category">China</span><span class="cnt">0</span>
             </li>
           </ul>
         </div>
 
         <!-- sort menu -->
         <div id="sortMenu" class="sort_menu">
-          <div class="s_head">
-            <h4>SORT BY</h4>
-            <i class="xi-close"></i>
-          </div>
+          <h4>SORT BY</h4>
+          <i class="xi-close xi-2x"></i>
           <ul>
-            <li class="category">post date</li>
             <li class="category">random</li>
             <li class="category">release year</li>
             <li class="category">title</li>
-            <li class="category">votes</li>
           </ul>
         </div>
 
@@ -122,11 +118,7 @@
               </div>
               <div class="main_txt_wrap">
                 <p><%= list[i].plot %></p>
-                <div class="rate">
-                  User rating:&nbsp;<span><%= list[i].userRating %></span>/<span
-                    >10&nbsp;(네이버 평점)</span
-                  >
-                </div>
+                <span class="keywords"><%= list[i].keywords %></span>
               </div>
             </div>
             <div class="cmt">

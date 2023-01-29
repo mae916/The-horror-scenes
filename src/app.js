@@ -16,7 +16,9 @@ dotenv.config();
 
 app.get("/", async (req, res) => {
   let list = [];
+  let count;
 
+  // const kmdbAPI = async (item) => {
   // Kmdb API
   await axios({
     method: "get",
@@ -27,11 +29,14 @@ app.get("/", async (req, res) => {
       genre: "공포",
       detail: "Y",
       sort: "prodYear,1",
-      listCount: 30,
+      createDts: "2000", //click event(sort)
+      listCount: 2,
+      nation: "미국", //click event(filter)
     },
   })
     .then(function (response) {
       list = response.data.Data[0].Result;
+      count = response.data.Data[0].TotalCount;
     })
     .catch(function (error) {
       console.log("실패", error);
@@ -41,6 +46,9 @@ app.get("/", async (req, res) => {
   for (let i = 0; i < list.length; i++) {
     list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
     list[i].director = list[i].directors.director[0].directorNm;
+    if (list[i].keywords) {
+      list[i].keywords = "#" + list[i].keywords.replaceAll(",", " #");
+    }
     list[i].poster = list[i].posters
       .replace("thm/02", "poster")
       .replace("tn_", "")
@@ -61,8 +69,9 @@ app.get("/", async (req, res) => {
       j--;
     }
   }
+  // };
 
-  return res.render("index.ejs", { list });
+  return res.render("index.ejs", { list, count });
 });
 
 const handleListening = () => {

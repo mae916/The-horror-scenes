@@ -21,13 +21,12 @@ app.set("view engine", "html");
 _dotenv["default"].config();
 
 app.get("/", function _callee(req, res) {
-  var list, i, arr, j;
+  var list, count, i, arr, j;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          list = []; // Kmdb API
-
+          list = [];
           _context.next = 3;
           return regeneratorRuntime.awrap((0, _axios["default"])({
             method: "get",
@@ -38,10 +37,15 @@ app.get("/", function _callee(req, res) {
               genre: "공포",
               detail: "Y",
               sort: "prodYear,1",
-              listCount: 30
+              createDts: "2000",
+              //click event(sort)
+              listCount: 2,
+              nation: "미국" //click event(filter)
+
             }
           }).then(function (response) {
             list = response.data.Data[0].Result;
+            count = response.data.Data[0].TotalCount;
           })["catch"](function (error) {
             console.log("실패", error);
           }));
@@ -52,6 +56,11 @@ app.get("/", function _callee(req, res) {
             list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
 
             list[i].director = list[i].directors.director[0].directorNm;
+
+            if (list[i].keywords) {
+              list[i].keywords = "#" + list[i].keywords.replaceAll(",", " #");
+            }
+
             list[i].poster = list[i].posters.replace("thm/02", "poster").replace("tn_", "").replace(".jpg", "_01.jpg");
 
             if (list[i].repRlsDate !== "") {
@@ -68,10 +77,12 @@ app.get("/", function _callee(req, res) {
               list.splice(j, 1);
               j--;
             }
-          }
+          } // };
+
 
           return _context.abrupt("return", res.render("index.ejs", {
-            list: list
+            list: list,
+            count: count
           }));
 
         case 6:
