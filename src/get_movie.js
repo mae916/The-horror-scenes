@@ -1,7 +1,9 @@
+import dotenv from "dotenv";
 import axios from "axios";
+dotenv.config();
 
 export default async (nation) => {
-    // let list = [];
+    nation = nation || "미국";
 
     const response = await axios({
       method: "get",
@@ -12,13 +14,15 @@ export default async (nation) => {
         genre: "공포",
         detail: "Y",
         sort: "prodYear,1",
-        listCount: 30,
+        listCount: 2,
         nation, //click event(filter)
       },
     });
+    
 
     const list = response.data.Data[0].Result;
     const count = response.data.Data[0].TotalCount;
+
     let nationEn;
     if (nation == "") {
         nationEn = "everything";
@@ -43,6 +47,7 @@ export default async (nation) => {
                 nationEn = "everything";
         }
     }
+
     //API에서 가져온 db 가공 후 list에 넣기
     for (let i = 0; i < list.length; i++) {
       list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
@@ -70,5 +75,6 @@ export default async (nation) => {
         j--;
       }
     }
+
     return {list, count, nationEn};
 };

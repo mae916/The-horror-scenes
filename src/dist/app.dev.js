@@ -21,30 +21,32 @@ app.set("view engine", "html");
 _dotenv["default"].config();
 
 app.get("/", function _callee(req, res) {
-  var data;
+  var list, count, data;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          _context.prev = 0;
-          _context.next = 3;
-          return regeneratorRuntime.awrap((0, _get_movie["default"])(""));
+          list = [];
+          _context.prev = 1;
+          _context.next = 4;
+          return regeneratorRuntime.awrap((0, _get_movie["default"])("미국"));
 
-        case 3:
+        case 4:
           data = _context.sent;
+          console.log(data.list);
           return _context.abrupt("return", res.render("index.ejs", data));
 
-        case 7:
-          _context.prev = 7;
-          _context.t0 = _context["catch"](0);
+        case 9:
+          _context.prev = 9;
+          _context.t0 = _context["catch"](1);
           console.error("실패", _context.t0);
 
-        case 10:
+        case 12:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[1, 9]]);
 });
 app.get("/get_movie", function _callee2(req, res) {
   var nation, data;
@@ -58,7 +60,7 @@ app.get("/get_movie", function _callee2(req, res) {
 
         case 3:
           data = _context2.sent;
-          return _context2.abrupt("return", res.render("index.ejs", data));
+          return _context2.abrupt("return", res.json(data));
 
         case 5:
         case "end":

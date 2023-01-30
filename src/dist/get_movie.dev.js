@@ -5,9 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_dotenv["default"].config();
 
 var _callee = function _callee(nation) {
   var response, list, count, nationEn, i, arr, j;
@@ -15,7 +19,8 @@ var _callee = function _callee(nation) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          nation = nation || "미국";
+          _context.next = 3;
           return regeneratorRuntime.awrap((0, _axios["default"])({
             method: "get",
             url: "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp",
@@ -25,55 +30,55 @@ var _callee = function _callee(nation) {
               genre: "공포",
               detail: "Y",
               sort: "prodYear,1",
-              listCount: 30,
+              listCount: 2,
               nation: nation //click event(filter)
 
             }
           }));
 
-        case 2:
+        case 3:
           response = _context.sent;
           list = response.data.Data[0].Result;
           count = response.data.Data[0].TotalCount;
 
           if (!(nation == "")) {
-            _context.next = 9;
+            _context.next = 10;
             break;
           }
 
           nationEn = "everything";
-          _context.next = 23;
+          _context.next = 24;
           break;
 
-        case 9:
+        case 10:
           _context.t0 = nation;
-          _context.next = _context.t0 === "대한민국" ? 12 : _context.t0 === "미국" ? 14 : _context.t0 === "영국" ? 16 : _context.t0 === "일본" ? 18 : _context.t0 === "중국" ? 20 : 22;
+          _context.next = _context.t0 === "대한민국" ? 13 : _context.t0 === "미국" ? 15 : _context.t0 === "영국" ? 17 : _context.t0 === "일본" ? 19 : _context.t0 === "중국" ? 21 : 23;
           break;
 
-        case 12:
+        case 13:
           nationEn = "Korea";
-          return _context.abrupt("break", 23);
+          return _context.abrupt("break", 24);
 
-        case 14:
+        case 15:
           nationEn = "USA";
-          return _context.abrupt("break", 23);
+          return _context.abrupt("break", 24);
 
-        case 16:
+        case 17:
           nationEn = "UK";
-          return _context.abrupt("break", 23);
+          return _context.abrupt("break", 24);
 
-        case 18:
+        case 19:
           nationEn = "Japan";
-          return _context.abrupt("break", 23);
+          return _context.abrupt("break", 24);
 
-        case 20:
+        case 21:
           nationEn = "China";
-          return _context.abrupt("break", 23);
-
-        case 22:
-          nationEn = "everything";
+          return _context.abrupt("break", 24);
 
         case 23:
+          nationEn = "everything";
+
+        case 24:
           //API에서 가져온 db 가공 후 list에 넣기
           for (i = 0; i < list.length; i++) {
             list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
@@ -108,7 +113,7 @@ var _callee = function _callee(nation) {
             nationEn: nationEn
           });
 
-        case 26:
+        case 27:
         case "end":
           return _context.stop();
       }

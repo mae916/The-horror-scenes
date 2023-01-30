@@ -23,13 +23,12 @@ $(function () {
     $.ajax({
       url: "/get_movie?nation=".concat(nation),
       type: "get",
+      dataType: "json",
       success: function success(data) {
-        location.replace("/get_movie?nation=".concat(nation));
+        console.log(data);
       },
-      error: function error(request, status, _error) {
-        console.log("code: " + request.status);
-        console.log("message: " + request.responseText);
-        console.log("error: " + _error);
+      error: function error(err) {
+        console.log(err);
       }
     });
   });

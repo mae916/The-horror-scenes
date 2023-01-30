@@ -20,18 +20,17 @@ $(function () {
 
   $("#filterMenu .category").click(function() {
     const nation = $(this).data("nation");
-    
+
     $.ajax({
       url : `/get_movie?nation=${nation}`,
       type : "get",
+      dataType : "json",
       success : function(data) {
-        location.replace(`/get_movie?nation=${nation}`);
+        console.log(data);
       },
-      error: function (request, status, error) {
-        console.log("code: " + request.status)
-        console.log("message: " + request.responseText)
-        console.log("error: " + error);
-    }
+      error : function(err) {
+        console.log(err);
+      }
     });
   });
 });

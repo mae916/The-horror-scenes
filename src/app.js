@@ -15,12 +15,15 @@ app.set("view engine", "html");
 dotenv.config();
 
 app.get("/", async (req, res) => {
+  let list = [];
+  let count;
   
   // Kmdb API
-
+ 
     try {
-    const data = await getMovie("");
-    // console.log(data);
+    const data = await getMovie("미국");
+    console.log(data.list);
+
     return res.render("index.ejs", data);
   } catch (err) {
     console.error("실패", err);
@@ -30,7 +33,7 @@ app.get("/", async (req, res) => {
 app.get("/get_movie", async (req, res) => {
   const { nation } = req.query;
   const data = await getMovie(nation);
-  return res.render("index.ejs", data);
+  return res.json(data);
 });
 
 const handleListening = () => {
