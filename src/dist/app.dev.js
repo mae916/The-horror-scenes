@@ -4,7 +4,7 @@ var _express = _interopRequireDefault(require("express"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
-var _axios = _interopRequireDefault(require("axios"));
+var _get_movie = _interopRequireDefault(require("./get_movie"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -21,73 +21,48 @@ app.set("view engine", "html");
 _dotenv["default"].config();
 
 app.get("/", function _callee(req, res) {
-  var list, count, i, arr, j;
+  var data;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          list = [];
+          _context.prev = 0;
           _context.next = 3;
-          return regeneratorRuntime.awrap((0, _axios["default"])({
-            method: "get",
-            url: "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp",
-            params: {
-              collection: "kmdb_new2",
-              ServiceKey: process.env.KMDB_KEY,
-              genre: "공포",
-              detail: "Y",
-              sort: "prodYear,1",
-              createDts: "2000",
-              //click event(sort)
-              listCount: 2,
-              nation: "미국" //click event(filter)
-
-            }
-          }).then(function (response) {
-            list = response.data.Data[0].Result;
-            count = response.data.Data[0].TotalCount;
-          })["catch"](function (error) {
-            console.log("실패", error);
-          }));
+          return regeneratorRuntime.awrap((0, _get_movie["default"])(""));
 
         case 3:
-          //API에서 가져온 db 가공 후 list에 넣기
-          for (i = 0; i < list.length; i++) {
-            list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
+          data = _context.sent;
+          return _context.abrupt("return", res.render("index.ejs", data));
 
-            list[i].director = list[i].directors.director[0].directorNm;
+        case 7:
+          _context.prev = 7;
+          _context.t0 = _context["catch"](0);
+          console.error("실패", _context.t0);
 
-            if (list[i].keywords) {
-              list[i].keywords = "#" + list[i].keywords.replaceAll(",", " #");
-            }
-
-            list[i].poster = list[i].posters.replace("thm/02", "poster").replace("tn_", "").replace(".jpg", "_01.jpg");
-
-            if (list[i].repRlsDate !== "") {
-              list[i].repRlsDate = "(" + list[i].repRlsDate.substring(0, 4) + ")";
-            }
-
-            arr = list[i].posters.split("|");
-            list[i].poster = arr[0];
-          } // 이미지가 없는 경우 삭제
-
-
-          for (j = 0; j < list.length; j++) {
-            if (list[j].posters === "") {
-              list.splice(j, 1);
-              j--;
-            }
-          } // };
-
-
-          return _context.abrupt("return", res.render("index.ejs", {
-            list: list,
-            count: count
-          }));
-
-        case 6:
+        case 10:
         case "end":
           return _context.stop();
+      }
+    }
+  }, null, null, [[0, 7]]);
+});
+app.get("/get_movie", function _callee2(req, res) {
+  var nation, data;
+  return regeneratorRuntime.async(function _callee2$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          nation = req.query.nation;
+          _context2.next = 3;
+          return regeneratorRuntime.awrap((0, _get_movie["default"])(nation));
+
+        case 3:
+          data = _context2.sent;
+          return _context2.abrupt("return", res.render("index.ejs", data));
+
+        case 5:
+        case "end":
+          return _context2.stop();
       }
     }
   });

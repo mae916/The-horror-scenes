@@ -19,7 +19,7 @@
     <main>
       <section class="left">
         <div class="inner">
-          <h1 class="title">BEST HORROR SCENES</h1>
+          <h1 class="title"><a href="/"> BEST HORROR SCENES</a></h1>
           <div class="intro">
             <p>
               An ever growing collection featuring some of the best scenes in
@@ -53,10 +53,8 @@
       <section class="right">
         <!-- 상단 고정창 start -->
         <nav class="top_fixed">
-          Currently viewing<span class="filter_btn" id="filter">
-            everything</span
-          >
-          sorted by<span class="sort_btn" id="sort"> random</span>.
+          Currently viewing <span class="filter_btn" id="filter"><%= nationEn %></span>
+          sorted by <span class="sort_btn" id="sort">random</span>.
         </nav>
 
         <!-- filter menu -->
@@ -67,19 +65,19 @@
           </div>
           <ul>
             <li>
-              <span class="category">everything</span><span class="cnt">0</span>
+              <span class="category" data-nation="">everything</span><span class="cnt">0</span>
             </li>
             <li>
-              <span class="category" onclick="kmdbAPI(item)">Korea</span
+              <span class="category" data-nation="대한민국">Korea</span
               ><span class="cnt">0</span>
             </li>
-            <li><span class="category">USA</span><span class="cnt">0</span></li>
-            <li><span class="category">UK</span><span class="cnt">0</span></li>
+            <li><span class="category" data-nation="미국">USA</span><span class="cnt">0</span></li>
+            <li><span class="category" data-nation="영국">UK</span><span class="cnt">0</span></li>
             <li>
-              <span class="category">Japan</span><span class="cnt">0</span>
+              <span class="category" data-nation="일본">Japan</span><span class="cnt">0</span>
             </li>
             <li>
-              <span class="category">China</span><span class="cnt">0</span>
+              <span class="category" data-nation="중국">China</span><span class="cnt">0</span>
             </li>
           </ul>
         </div>
@@ -94,7 +92,6 @@
             <li class="category">title</li>
           </ul>
         </div>
-
         <!-- 상단 고정창 end -->
         <!-- 본문 start -->
         <div class="movie_info">

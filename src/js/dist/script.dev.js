@@ -18,4 +18,19 @@ $(function () {
     $("#sortMenu").hide();
     body.classList.remove("scrollLock");
   });
+  $("#filterMenu .category").click(function () {
+    var nation = $(this).data("nation");
+    $.ajax({
+      url: "/get_movie?nation=".concat(nation),
+      type: "get",
+      success: function success(data) {
+        location.replace("/get_movie?nation=".concat(nation));
+      },
+      error: function error(request, status, _error) {
+        console.log("code: " + request.status);
+        console.log("message: " + request.responseText);
+        console.log("error: " + _error);
+      }
+    });
+  });
 });
