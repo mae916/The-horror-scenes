@@ -2,8 +2,7 @@ import dotenv from "dotenv";
 import axios from "axios";
 dotenv.config();
 
-export default async (nation) => {
-    nation = nation || "미국";
+export default async (nation, sort, order) => {;
 
     const response = await axios({
       method: "get",
@@ -13,8 +12,9 @@ export default async (nation) => {
         ServiceKey: process.env.KMDB_KEY,
         genre: "공포",
         detail: "Y",
-        sort: "prodYear,1",
-        listCount: 2,
+        sort: `${sort},${order}`, //1 내림차순 0 오름차순
+        // sort: "prodYear,1", 
+        listCount: 30,
         nation, //click event(filter)
       },
     });
@@ -22,6 +22,8 @@ export default async (nation) => {
 
     const list = response.data.Data[0].Result;
     const count = response.data.Data[0].TotalCount;
+
+    
 
     let nationEn;
     if (nation == "") {
@@ -48,12 +50,21 @@ export default async (nation) => {
         }
     }
 
+    let orderNm;
+    if (order == "1") {
+      orderNm = "descending";
+    } else if(order == "0") {
+      orderNm = "ascending";
+    } else {
+      orderNm = "descending";
+    }
+
     //API에서 가져온 db 가공 후 list에 넣기
     for (let i = 0; i < list.length; i++) {
       list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
       list[i].director = list[i].directors.director[0].directorNm;
       if (list[i].keywords) {
-        list[i].keywords = "#" + list[i].keywords.replaceAll(",", " #");
+        list[i].keywords = "#" + list[i].keywords.replace(/ /g, '').replaceAll(",", " #");
       }
       list[i].poster = list[i].posters
         .replace("thm/02", "poster")
@@ -76,5 +87,5 @@ export default async (nation) => {
       }
     }
 
-    return {list, count, nationEn};
+    return {list, count, nationEn, sort, orderNm};
 };

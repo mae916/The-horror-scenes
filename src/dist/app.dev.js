@@ -21,46 +21,45 @@ app.set("view engine", "html");
 _dotenv["default"].config();
 
 app.get("/", function _callee(req, res) {
-  var list, count, data;
+  var data;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          list = [];
-          _context.prev = 1;
-          _context.next = 4;
-          return regeneratorRuntime.awrap((0, _get_movie["default"])("미국"));
+          _context.prev = 0;
+          _context.next = 3;
+          return regeneratorRuntime.awrap((0, _get_movie["default"])("", "title", "0"));
 
-        case 4:
+        case 3:
           data = _context.sent;
-          console.log(data.list);
           return _context.abrupt("return", res.render("index.ejs", data));
 
-        case 9:
-          _context.prev = 9;
-          _context.t0 = _context["catch"](1);
+        case 7:
+          _context.prev = 7;
+          _context.t0 = _context["catch"](0);
           console.error("실패", _context.t0);
 
-        case 12:
+        case 10:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[1, 9]]);
+  }, null, null, [[0, 7]]);
 });
 app.get("/get_movie", function _callee2(req, res) {
-  var nation, data;
+  var _req$query, nation, sort, order, data;
+
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          nation = req.query.nation;
+          _req$query = req.query, nation = _req$query.nation, sort = _req$query.sort, order = _req$query.order;
           _context2.next = 3;
-          return regeneratorRuntime.awrap((0, _get_movie["default"])(nation));
+          return regeneratorRuntime.awrap((0, _get_movie["default"])(nation, sort, order));
 
         case 3:
           data = _context2.sent;
-          return _context2.abrupt("return", res.json(data));
+          return _context2.abrupt("return", res.send(data));
 
         case 5:
         case "end":

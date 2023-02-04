@@ -93,18 +93,19 @@ main {
   top: 0;
 }
 .right .top_fixed .filter_btn,
-.right .top_fixed .sort_btn {
+.right .top_fixed .sort_btn, .right .top_fixed .order_btn {
   box-shadow: 0 1px 0 #76150f;
   color: #76150f;
   cursor: pointer;
 }
 .right .top_fixed .filter_btn:hover,
-.right .top_fixed .sort_btn:hover {
+.right .top_fixed .sort_btn:hover, .right .top_fixed .order_btn:hover {
   box-shadow: 0 1px 0 #fff;
   color: #fff;
 }
 .right .filter_menu,
-.right .sort_menu {
+.right .sort_menu,
+.right .order_menu {
   box-sizing: border-box;
   background-color: rgba(231, 71, 60, 0.95);
   display: none;
@@ -117,43 +118,51 @@ main {
   overflow: scroll;
 }
 .right .filter_menu .xi-close,
-.right .sort_menu .xi-close {
+.right .sort_menu .xi-close,
+.right .order_menu .xi-close {
   position: absolute;
   cursor: pointer;
   right: 30px;
   top: 30px;
 }
 .right .filter_menu h4,
-.right .sort_menu h4 {
+.right .sort_menu h4,
+.right .order_menu h4 {
   color: #76150f;
   padding: 12px 0 6px;
 }
 .right .filter_menu ul li,
-.right .sort_menu ul li {
+.right .sort_menu ul li,
+.right .order_menu ul li {
   position: relative;
   padding: 5px 0;
   cursor: pointer;
 }
 .right .filter_menu ul li.category,
-.right .sort_menu ul li.category {
+.right .sort_menu ul li.category,
+.right .order_menu ul li.category {
   font-size: 70px;
   font-weight: 300;
 }
 .right .filter_menu ul li.category:hover,
-.right .sort_menu ul li.category:hover {
+.right .sort_menu ul li.category:hover,
+.right .order_menu ul li.category:hover {
   color: #76150f;
 }
 .right .filter_menu ul li .category,
-.right .sort_menu ul li .category {
+.right .sort_menu ul li .category,
+.right .order_menu ul li .category {
   font-size: 70px;
   font-weight: 300;
 }
 .right .filter_menu ul li .category:hover,
-.right .sort_menu ul li .category:hover {
+.right .sort_menu ul li .category:hover,
+.right .order_menu ul li .category:hover {
   color: #76150f;
 }
 .right .filter_menu ul li .cnt,
-.right .sort_menu ul li .cnt {
+.right .sort_menu ul li .cnt,
+.right .order_menu ul li .cnt {
   display: inline-block;
   position: absolute;
   top: 0;
@@ -185,11 +194,13 @@ main {
   width: 70%;
 }
 .right .movie_info article .tit span {
-  display: flex;
-  align-items: flex-end;
+  text-align: end;
 }
 .right .movie_info article .tit span .director {
+  padding-left: 5px;
+  text-align: end;
   font-weight: 600;
+  word-break: keep-all;
 }
 .right .movie_info article .main_txt {
   display: flex;
@@ -236,6 +247,8 @@ main {
   justify-content: flex-end;
   color: #831d16;
   font-weight: 600;
+  word-break: keep-all;
+  line-height: 28px;
 }
 .right .movie_info article .main_txt .main_txt_wrap .keywords * {
   color: #831d16;

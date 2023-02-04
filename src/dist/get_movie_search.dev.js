@@ -13,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 _dotenv["default"].config();
 
-var _callee = function _callee(nation, sort, order) {
-  var response, list, count, nationEn, orderNm, i, arr, j;
+var _callee = function _callee(nation) {
+  var response, list, count, nationEn, i, arr, j;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -23,16 +23,12 @@ var _callee = function _callee(nation, sort, order) {
           _context.next = 3;
           return regeneratorRuntime.awrap((0, _axios["default"])({
             method: "get",
-            url: "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp",
+            url: "http://localhost:4000/get_movie",
             params: {
-              collection: "kmdb_new2",
-              ServiceKey: process.env.KMDB_KEY,
               genre: "공포",
               detail: "Y",
-              sort: "".concat(sort, ",").concat(order),
-              //1 내림차순 0 오름차순
-              // sort: "prodYear,1", 
-              listCount: 30,
+              sort: "prodYear,1",
+              listCount: 2,
               nation: nation //click event(filter)
 
             }
@@ -81,22 +77,14 @@ var _callee = function _callee(nation, sort, order) {
           nationEn = "everything";
 
         case 24:
-          if (order == "1") {
-            orderNm = "descending";
-          } else if (order == "0") {
-            orderNm = "ascending";
-          } else {
-            orderNm = "descending";
-          } //API에서 가져온 db 가공 후 list에 넣기
-
-
+          //API에서 가져온 db 가공 후 list에 넣기
           for (i = 0; i < list.length; i++) {
             list[i].plot = list[i].plots.plot[0].plotText; // 줄거리
 
             list[i].director = list[i].directors.director[0].directorNm;
 
             if (list[i].keywords) {
-              list[i].keywords = "#" + list[i].keywords.replace(/ /g, '').replaceAll(",", " #");
+              list[i].keywords = "#" + list[i].keywords.replaceAll(",", " #");
             }
 
             list[i].poster = list[i].posters.replace("thm/02", "poster").replace("tn_", "").replace(".jpg", "_01.jpg");
@@ -120,12 +108,10 @@ var _callee = function _callee(nation, sort, order) {
           return _context.abrupt("return", {
             list: list,
             count: count,
-            nationEn: nationEn,
-            sort: sort,
-            orderNm: orderNm
+            nationEn: nationEn
           });
 
-        case 28:
+        case 27:
         case "end":
           return _context.stop();
       }

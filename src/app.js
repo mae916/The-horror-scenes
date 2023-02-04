@@ -15,14 +15,11 @@ app.set("view engine", "html");
 dotenv.config();
 
 app.get("/", async (req, res) => {
-  let list = [];
-  let count;
   
   // Kmdb API
- 
     try {
-    const data = await getMovie("미국");
-    console.log(data.list);
+    const data = await getMovie("","title","0");
+    // console.log(data.list);
 
     return res.render("index.ejs", data);
   } catch (err) {
@@ -31,10 +28,11 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/get_movie", async (req, res) => {
-  const { nation } = req.query;
-  const data = await getMovie(nation);
-  return res.json(data);
+  const { nation, sort, order } = req.query;
+  const data = await getMovie(nation, sort, order);
+  return res.send(data);
 });
+
 
 const handleListening = () => {
   console.log(`http://localhost:${PORT}`);

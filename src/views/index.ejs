@@ -53,8 +53,8 @@
       <section class="right">
         <!-- 상단 고정창 start -->
         <nav class="top_fixed">
-          Currently viewing <span class="filter_btn" id="filter"><%= nationEn %></span>
-          sorted by <span class="sort_btn" id="sort">random</span>.
+          Currently viewing <span class="filter_btn" id="filter">everything</span>
+          sorted by <span class="sort_btn" id="sort">title</span> in <span class="order_btn" id="order">descending</span> order.
         </nav>
 
         <!-- filter menu -->
@@ -87,9 +87,18 @@
           <h4>SORT BY</h4>
           <i class="xi-close xi-2x"></i>
           <ul>
-            <li class="category">random</li>
-            <li class="category">release year</li>
-            <li class="category">title</li>
+            <li class="category" data-sort="prodYear">prod year</li>
+            <li class="category" data-sort="title">title</li>
+          </ul>
+        </div>
+
+        <!-- order menu -->
+        <div id="orderMenu" class="order_menu">
+          <h4>SORT ORDER</h4>
+          <i class="xi-close xi-2x"></i>
+          <ul>
+            <li class="category" data-order="0">ascending</li>
+            <li class="category" data-order="1">descending</li>
           </ul>
         </div>
         <!-- 상단 고정창 end -->
@@ -135,6 +144,42 @@
       <div class="youtube"></div>
       <div class="twitter"></div>
     </footer>
+
+    <script type="text/html" id="tpl">
+      <div class="tpl_html">
+        <article>
+          <div class="tit">
+            <h2 class="movieName" id="movieName">
+              <data>movieName</data><data>repRlsDate</data>
+            </h2>
+            <span
+              >Directed by<span class="director" id="director"
+                ><data>director</data></span
+              ></span
+            >
+          </div>
+          <div class="main_txt">
+            <div class="video_box">
+              <div class="tag" id="tag"><data>no</data></div>
+              <img src="<data>poster</data>" />
+            </div>
+            <div class="main_txt_wrap">
+              <p><data>plot</data></p>
+              <span class="keywords"><data>keywords</data></span>
+            </div>
+          </div>
+          <div class="cmt">
+            <span class="view">No comments</span>
+            <span class="write"
+              ><i class="xi-speech"></i>&nbsp;<span>Leave a Comment</span
+              >&nbsp;</span
+            >
+          </div>
+        </article>
+        <div class="gradient"></div>
+      </div>
+    </script>
+
   </body>
 </html>
 <script src="/js/script.js"></script>

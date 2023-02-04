@@ -93,7 +93,7 @@ main {
     z-index: 1;
     top: 0;
     .filter_btn,
-    .sort_btn {
+    .sort_btn, .order_btn {
       box-shadow: 0 1px 0 #76150f;
       color: #76150f;
       cursor: pointer;
@@ -104,7 +104,8 @@ main {
     }
   }
   .filter_menu,
-  .sort_menu {
+  .sort_menu,
+  .order_menu {
     box-sizing: border-box;
     background-color: rgb(231, 71, 60, 0.95);
     display: none;
@@ -179,10 +180,12 @@ main {
           width: 70%;
         }
         span {
-          display: flex;
-          align-items: flex-end;
+          text-align: end;
           .director {
+            padding-left: 5px;
+            text-align: end;
             font-weight: 600;
+            word-break: keep-all;
           }
         }
       }
@@ -235,6 +238,8 @@ main {
             justify-content: flex-end;
             color: #831d16;
             font-weight: 600;
+            word-break: keep-all;
+            line-height:28px;
             & * {
               color: #831d16;
             }
