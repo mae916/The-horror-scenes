@@ -4,11 +4,22 @@ ul {
   padding-left: 0;
 }
 
-.on {
-  display: block;
+body {
+  margin: 0;
 }
 
-/** 공통 끝 */
+h4 {
+  margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.scrollLock {
+  overflow: hidden;
+}
+
 
 main {
   display: flex;
@@ -16,38 +27,55 @@ main {
   height: 100%;
 }
 
+/** 공통 끝 */
+
+
+// index.ejs 시작
+
 .left {
-  overflow: scroll;
+  width: 33%;
   background-color: #f0f0f0;
-  .title {
-    font-family: "Prompt", sans-serif;
-    color: #e7473c;
-    line-height: 70px;
-    font-size: 72px;
-    padding: 10vh 0 0 72px;
-    margin: 0;
-    font-weight: 400;
-  }
-  .intro {
-    width: 54%;
-    padding: 72px;
-    font-size: 24px;
-    color: #e7473c;
-    p:nth-child(2) {
-      font-size: 17px;
-    }
-    .links {
+  position: relative;
+  .inner {
+    position: sticky;
+    top: 0;
+    .title {
+      font-family: "Prompt", sans-serif;
+      color: #e7473c;
+      line-height: 80px;
+      letter-spacing: 3px;
+      font-size: 72px;
+      padding: 10vh 0 0 72px;
+      margin: 0;
+      font-weight: 400;
       a {
-        font-size: 17px;
-        text-decoration: none;
-        box-shadow: 0 1px 0 rgb(0 0 0 / 60%);
-        color: rgba(0, 0, 0, 0.6);
-        font-weight: 500;
+        color: #e7473c;
       }
     }
-    p:last-child {
-      font-size: 13px;
-      color: rgba(0, 0, 0, 0.6);
+    .intro {
+      width: 54%;
+      padding: 72px;
+      font-size: 24px;
+      color: #e7473c;
+      p:nth-child(2) {
+        font-size: 17px;
+      }
+      .links {
+        display: flex;
+        justify-content: space-around;
+        padding-bottom:5px;
+        a {
+          font-size: 25px;
+          text-decoration: none;
+          box-shadow: 0 1px 0 rgb(0 0 0 / 60%);
+          color: rgba(0, 0, 0, 0.6);
+          font-weight: 500;
+        }
+      }
+      p:last-child {
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.6);
+      }
     }
   }
 }
@@ -60,12 +88,19 @@ main {
     color: #fff;
   }
   .top_fixed {
+    background-color: #e7473cf9;
     padding: 60px 144px;
     font-size: 20px;
     font-weight: 500;
     text-align: center;
     border-bottom: 1.5px solid #cf4036;
-    .search_btn {
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    .filter_btn,
+    .sort_btn, .order_btn {
       box-shadow: 0 1px 0 #76150f;
       color: #76150f;
       cursor: pointer;
@@ -75,25 +110,28 @@ main {
       }
     }
   }
-  .search_menu {
+  .filter_menu,
+  .sort_menu,
+  .order_menu {
     box-sizing: border-box;
     background-color: rgb(231, 71, 60, 0.95);
     display: none;
     z-index: 2;
-    padding: 3% 3% 3% 15%;
-    position: absolute;
-    width: 100%;
+    padding: 10vh 144px;
+    width: 67%;
     height: 100%;
+    position: fixed;
     top: 0;
+    overflow: scroll;
     .xi-close {
+      position: absolute;
       cursor: pointer;
+      right: 30px;
+      top: 30px;
     }
-    .s_head {
-      display: flex;
-      justify-content: space-between;
-      h4 {
-        color: #76150f;
-      }
+    h4 {
+      color: #76150f;
+      padding: 12px 0 6px;
     }
     ul {
       li {
@@ -129,9 +167,15 @@ main {
     }
   }
   .movie_info {
-    padding: 80px 144px;
+    & > h1 {
+      padding: 80px 144px 0;
+      font-size: 40px;
+      font-weight: 700;
+      margin: 0;
+      color: #76150f;
+    }
     article {
-      margin-bottom: 40px;
+      padding: 80px 144px 60px;
       .tit {
         display: flex;
         justify-content: space-between;
@@ -140,54 +184,164 @@ main {
           font-size: 55px;
           font-weight: 700;
           margin: 0;
+          width: 70%;
         }
-        .director {
-          display: flex;
-          align-items: flex-end;
-          font-weight: 600;
-        }
-      }
-      .video_box {
-        position: relative;
-        .tag {
-          font-size: 22px;
-          font-weight: 600;
-          width: 66px;
-          position: absolute;
-          background-image: linear-gradient(to top right, #c82419, #e3291c 50%);
-          box-shadow: inset 1px 0 0 #bf2318, inset 0 -1px 0 #ac1f15,
-            inset 0 0 20px #bf2318;
-          text-align: center;
-          padding: 10px 0;
-          left: -8px;
-          top: 20px;
-        }
-        video {
-          width: 844px;
+        span {
+          text-align: end;
+          .director {
+            padding-left: 5px;
+            text-align: end;
+            font-weight: 600;
+            word-break: keep-all;
+          }
         }
       }
+
       .main_txt {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: space-between;
+        .video_box {
+          position: relative;
+          width: 50%;
+          .tag {
+            font-size: 22px;
+            font-weight: 600;
+            width: 66px;
+            position: absolute;
+            background-image: linear-gradient(
+              to top right,
+              #c82419,
+              #e3291c 50%
+            );
+            box-shadow: inset 1px 0 0 #bf2318, inset 0 -1px 0 #ac1f15,
+              inset 0 0 20px #bf2318;
+            text-align: center;
+            padding: 10px 0;
+            left: -8px;
+            top: 20px;
+          }
+          img {
+            width: 90%;
+          }
+        }
         .main_txt_wrap {
           width: 50%;
           & > p {
+            font-size: 19px;
             font-weight: 600;
+            margin-top: 0;
+            line-height: 30px;
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 18;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: keep-all;
           }
-          .bottom {
+          .keywords {
+            margin-top: 60px;
             display: flex;
-            justify-content: space-between;
-            .rate {
+            justify-content: flex-end;
+            color: #831d16;
+            font-weight: 600;
+            word-break: keep-all;
+            line-height:28px;
+            & * {
               color: #831d16;
-              font-weight: 600;
-              & * {
-                color: #831d16;
-              }
             }
           }
         }
       }
+      .cmt {
+        & * {
+          color: #831d16;
+        }
+        .write {
+          span {
+            padding-bottom: 10px;
+            border-bottom: 2px solid #831d16;
+          }
+        }
+        font-weight: 600;
+        margin-top: 60px;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .gradient {
+      background: linear-gradient(to bottom, #e7473c, #a8362eae);
+      height: 120px;
+      width: 100%;
     }
   }
 }
+
+//index.ejs 끝
+
+//join.ejs 시작
+.join_box_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .join_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #f0f0f0;
+    width: 60%;
+    height: 80%;
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      input {
+        font-size: 20px;
+        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgb(0, 0, 0, 0.08);
+        border: 0;
+        box-sizing: border-box;
+        height: 55px;
+        width: 500px;
+        margin: 15px 0;
+        color: #24292f;
+        padding:10px;
+        &:focus-visible {
+          border: 2px solid #e7473c;
+          padding: 8px;
+          outline: 0;
+        }
+        &[type="submit"] {
+          background-color:#e7473c;
+          color: #f0f0f0;
+          cursor: pointer;
+        }
+        &[type="submit"]:active {
+          transform: scale(0.98);
+        }
+      }
+    }
+
+    .social_login_box {
+      display: flex;
+      justify-content: space-evenly;
+      .kakao, .github {
+        display:block;
+        line-height: 60px;
+        width: 200px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 25px;
+      }
+      .kakao {
+        background-color: #FEE500;
+        color: #000000; 
+      }
+      .github {
+        background-color: #24292f;
+      }
+    }
+  }
+}
+
+
+//join.ejs 끝
