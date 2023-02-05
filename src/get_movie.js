@@ -13,7 +13,6 @@ export default async (nation, sort, order) => {;
         genre: "공포",
         detail: "Y",
         sort: `${sort},${order}`, //1 내림차순 0 오름차순
-        // sort: "prodYear,1", 
         listCount: 30,
         nation, //click event(filter)
       },

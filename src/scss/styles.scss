@@ -20,13 +20,17 @@ a {
   overflow: hidden;
 }
 
-/** 공통 끝 */
 
 main {
   display: flex;
   width: 100%;
   height: 100%;
 }
+
+/** 공통 끝 */
+
+
+// index.ejs 시작
 
 .left {
   width: 33%;
@@ -57,8 +61,11 @@ main {
         font-size: 17px;
       }
       .links {
+        display: flex;
+        justify-content: space-around;
+        padding-bottom:5px;
         a {
-          font-size: 17px;
+          font-size: 25px;
           text-decoration: none;
           box-shadow: 0 1px 0 rgb(0 0 0 / 60%);
           color: rgba(0, 0, 0, 0.6);
@@ -269,3 +276,72 @@ main {
     }
   }
 }
+
+//index.ejs 끝
+
+//join.ejs 시작
+.join_box_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .join_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #f0f0f0;
+    width: 60%;
+    height: 80%;
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      input {
+        font-size: 20px;
+        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgb(0, 0, 0, 0.08);
+        border: 0;
+        box-sizing: border-box;
+        height: 55px;
+        width: 500px;
+        margin: 15px 0;
+        color: #24292f;
+        padding:10px;
+        &:focus-visible {
+          border: 2px solid #e7473c;
+          padding: 8px;
+          outline: 0;
+        }
+        &[type="submit"] {
+          background-color:#e7473c;
+          color: #f0f0f0;
+          cursor: pointer;
+        }
+        &[type="submit"]:active {
+          transform: scale(0.98);
+        }
+      }
+    }
+
+    .social_login_box {
+      display: flex;
+      justify-content: space-evenly;
+      .kakao, .github {
+        display:block;
+        line-height: 60px;
+        width: 200px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 25px;
+      }
+      .kakao {
+        background-color: #FEE500;
+        color: #000000; 
+      }
+      .github {
+        background-color: #24292f;
+      }
+    }
+  }
+}
+
+
+//join.ejs 끝

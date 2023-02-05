@@ -1,8 +1,19 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _express = _interopRequireDefault(require("express"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
+
+var _morgan = _interopRequireDefault(require("morgan"));
+
+var _models = _interopRequireDefault(require("../models"));
+
+var _userRouter = _interopRequireDefault(require("./router/userRouter"));
 
 var _get_movie = _interopRequireDefault(require("./get_movie"));
 
@@ -17,6 +28,11 @@ app.use("/", _express["default"]["static"]("video")); //여기도  //html 파일
 app.set("views", __dirname + "/views");
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
+app.use((0, _morgan["default"])('dev'));
+app.use(_express["default"].json());
+app.use(_express["default"].urlencoded({
+  extended: false
+}));
 
 _dotenv["default"].config();
 
@@ -32,7 +48,10 @@ app.get("/", function _callee(req, res) {
 
         case 3:
           data = _context.sent;
-          return _context.abrupt("return", res.render("index.ejs", data));
+          return _context.abrupt("return", res.render("index.ejs", {
+            list: data.list,
+            title: "Home"
+          }));
 
         case 7:
           _context.prev = 7;
@@ -68,9 +87,12 @@ app.get("/get_movie", function _callee2(req, res) {
     }
   });
 });
+app.use("/user", _userRouter["default"]);
 
 var handleListening = function handleListening() {
   console.log("http://localhost:".concat(PORT));
 };
 
 app.listen(PORT, handleListening);
+var _default = app;
+exports["default"] = _default;

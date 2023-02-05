@@ -203,9 +203,7 @@ function ajaxLoad(url, data) {
       }
 
       url += params.toString(); //URL에서 사용하기에 적합한 쿼리 문자열을 반환
-    } // const fullUrl = new URL(`http://localhost:4000${url}`);
-    // const Pnation = fullUrl.searchParams.get('nation');
-
+    }
 
     xhr.open("GET", url); // http 요청 초기화
 

@@ -31,7 +31,6 @@ var _callee = function _callee(nation, sort, order) {
               detail: "Y",
               sort: "".concat(sort, ",").concat(order),
               //1 내림차순 0 오름차순
-              // sort: "prodYear,1", 
               listCount: 30,
               nation: nation //click event(filter)
 

@@ -128,7 +128,7 @@ function ajaxLoad(url, data) {
         let cate = data[key];
         
         for(const index in cate) {
-          params.append(index, cate[index]);//append(추가할 매개변수의 이름, 추가할 매개변수의 값) : 지정한 키/값 쌍을 새로운 검색 매개변수로서 추가
+          params.append(index, cate[index]); //append(추가할 매개변수의 이름, 추가할 매개변수의 값) : 지정한 키/값 쌍을 새로운 검색 매개변수로서 추가
         
         }
       }
@@ -138,12 +138,7 @@ function ajaxLoad(url, data) {
 
       url += params.toString(); //URL에서 사용하기에 적합한 쿼리 문자열을 반환
     }
-
-    // const fullUrl = new URL(`http://localhost:4000${url}`);
-    // const Pnation = fullUrl.searchParams.get('nation');
   
-    
-    
     xhr.open("GET", url); // http 요청 초기화
     xhr.send(null); // http 요청 전송
 

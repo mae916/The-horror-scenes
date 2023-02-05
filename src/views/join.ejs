@@ -1,0 +1,18 @@
+<%-include ('partial/head') %>
+<%-include ('partial/left_fixed') %>
+<div class="right join_box_wrap">
+    <div class="join_box">
+        <form method="POST">
+            <input type="text" name ="userid" placeholder="email" required>
+            <input type="password" name ="password" placeholder="password" required>
+            <input type="password" name ="password2" placeholder="confirm password" required>
+            <input type="text" name ="username" placeholder="username" required>
+            <input type="submit" value="JOIN US" required>
+        </form>
+        <div class="social_login_box">
+            <a class="kakao" href="">Login with kakao</a>
+            <a class="github" href="">Login with github</a>
+        </div>
+    </div>
+</div>
+<%-include ('partial/footer') %>

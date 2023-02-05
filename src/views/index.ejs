@@ -1,55 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-    <title>Home → Best Horror Scenes → An ever growing collection...</title>
-  </head>
-  <body>
-    <main>
-      <section class="left">
-        <div class="inner">
-          <h1 class="title"><a href="/"> BEST HORROR SCENES</a></h1>
-          <div class="intro">
-            <p>
-              An ever growing collection featuring some of the best scenes in
-              horror.
-            </p>
-            <p>
-              “Best Horror Scenes” is a collection of scenes I feel are some of
-              the most affecting in horror. Some may be simple black cat scares,
-              others may be more subdued or nuanced. Many come from films that
-              aren't necessarily “horror” but have elements or threads of
-              horror.
-            </p>
-            <div class="links">
-              <a href="">Newsletter</a>
-              <a href="">Suggest a Scene</a>
-              <a href="">YouTube</a>
-              <a href="">Twitter</a>
-              <a href="">Contact</a>
-              <a href="">RSS</a>
-              <a href="">Letterboxd</a>
-            </div>
-            <p>
-              Best Horror Scenes is a love letter to the Horror film genre by
-              Brandon Durham. Most film clips contain major spoilers, and it is
-              recommended you don’t watch the clip if you plan on seeing the
-              film.
-            </p>
-          </div>
-        </div>
-      </section>
+<%-include ('partial/head') %>
+      <%-include ('partial/left_fixed') %>
       <section class="right">
         <!-- 상단 고정창 start -->
         <nav class="top_fixed">
@@ -97,8 +47,8 @@
           <h4>SORT ORDER</h4>
           <i class="xi-close xi-2x"></i>
           <ul>
-            <li class="category" data-order="0">ascending</li>
             <li class="category" data-order="1">descending</li>
+            <li class="category" data-order="0">ascending</li>
           </ul>
         </div>
         <!-- 상단 고정창 end -->
@@ -139,47 +89,6 @@
           <%}%>
         </div>
       </section>
-    </main>
-    <footer>
-      <div class="youtube"></div>
-      <div class="twitter"></div>
-    </footer>
+    <%-include ('partial/tpl') %>
+    <%-include ('partial/footer') %>
 
-    <script type="text/html" id="tpl">
-      <div class="tpl_html">
-        <article>
-          <div class="tit">
-            <h2 class="movieName" id="movieName">
-              <data>movieName</data><data>repRlsDate</data>
-            </h2>
-            <span
-              >Directed by<span class="director" id="director"
-                ><data>director</data></span
-              ></span
-            >
-          </div>
-          <div class="main_txt">
-            <div class="video_box">
-              <div class="tag" id="tag"><data>no</data></div>
-              <img src="<data>poster</data>" />
-            </div>
-            <div class="main_txt_wrap">
-              <p><data>plot</data></p>
-              <span class="keywords"><data>keywords</data></span>
-            </div>
-          </div>
-          <div class="cmt">
-            <span class="view">No comments</span>
-            <span class="write"
-              ><i class="xi-speech"></i>&nbsp;<span>Leave a Comment</span
-              >&nbsp;</span
-            >
-          </div>
-        </article>
-        <div class="gradient"></div>
-      </div>
-    </script>
-
-  </body>
-</html>
-<script src="/js/script.js"></script>

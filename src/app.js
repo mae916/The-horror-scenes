@@ -1,5 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
+import morgan from "morgan";
+import sequelize from "../models";
+
+import userRouter from "./router/userRouter"
 import getMovie from "./get_movie";
 
 const app = express();
@@ -11,6 +15,10 @@ app.use("/", express.static("video")); //여기도  //html 파일에서 불러�
 app.set("views", __dirname + "/views");
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
+app.use(morgan('dev'));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 dotenv.config();
 
@@ -21,7 +29,7 @@ app.get("/", async (req, res) => {
     const data = await getMovie("","title","0");
     // console.log(data.list);
 
-    return res.render("index.ejs", data);
+    return res.render("index.ejs", { list : data.list, title : "Home" });
   } catch (err) {
     console.error("실패", err);
   }
@@ -33,6 +41,7 @@ app.get("/get_movie", async (req, res) => {
   return res.send(data);
 });
 
+app.use("/user", userRouter);
 
 const handleListening = () => {
   console.log(`http://localhost:${PORT}`);
@@ -41,3 +50,4 @@ const handleListening = () => {
 app.listen(PORT, handleListening);
 
 
+export default app;

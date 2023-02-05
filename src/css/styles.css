@@ -21,13 +21,13 @@ a {
   overflow: hidden;
 }
 
-/** 공통 끝 */
 main {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
+/** 공통 끝 */
 .left {
   width: 33%;
   background-color: #f0f0f0;
@@ -59,8 +59,13 @@ main {
 .left .inner .intro p:nth-child(2) {
   font-size: 17px;
 }
+.left .inner .intro .links {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
+}
 .left .inner .intro .links a {
-  font-size: 17px;
+  font-size: 25px;
   text-decoration: none;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
   color: rgba(0, 0, 0, 0.6);
@@ -270,4 +275,66 @@ main {
   background: linear-gradient(to bottom, #e7473c, #a8362eae);
   height: 120px;
   width: 100%;
+}
+
+.join_box_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.join_box_wrap .join_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #f0f0f0;
+  width: 60%;
+  height: 80%;
+}
+.join_box_wrap .join_box form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.join_box_wrap .join_box form input {
+  font-size: 20px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 0;
+  box-sizing: border-box;
+  height: 55px;
+  width: 500px;
+  margin: 15px 0;
+  color: #24292f;
+  padding: 10px;
+}
+.join_box_wrap .join_box form input:focus-visible {
+  border: 2px solid #e7473c;
+  padding: 8px;
+  outline: 0;
+}
+.join_box_wrap .join_box form input[type=submit] {
+  background-color: #e7473c;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+.join_box_wrap .join_box form input[type=submit]:active {
+  transform: scale(0.98);
+}
+.join_box_wrap .join_box .social_login_box {
+  display: flex;
+  justify-content: space-evenly;
+}
+.join_box_wrap .join_box .social_login_box .kakao, .join_box_wrap .join_box .social_login_box .github {
+  display: block;
+  line-height: 60px;
+  width: 200px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 25px;
+}
+.join_box_wrap .join_box .social_login_box .kakao {
+  background-color: #FEE500;
+  color: #000000;
+}
+.join_box_wrap .join_box .social_login_box .github {
+  background-color: #24292f;
 }
