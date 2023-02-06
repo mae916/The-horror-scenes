@@ -23,5 +23,5 @@ Css와 Node.js를 익히기 위해 besthorrorscenes 사이트를 참고하였고
 
   - ajax-json : ajax-json 형식으로 데이터를 불러오고 출력함 공포영화 전용 사이트로, 여러가지 방법으로 정렬가능하며, 현재(23.02.06) 댓글쓰기를 위한 일반로그인, 소셜로그인(카카오, 깃허브, 네이버) 구현중
 
-## License
+## 침고
 https://besthorrorscenes.com/
