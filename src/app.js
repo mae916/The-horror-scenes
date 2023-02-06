@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import sequelize from "../models";
+import sequelize from "./models";
 
 import userRouter from "./router/userRouter"
 import getMovie from "./get_movie";

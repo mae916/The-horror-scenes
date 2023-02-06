@@ -11,7 +11,7 @@ var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
-var _models = _interopRequireDefault(require("../models"));
+var _models = _interopRequireDefault(require("./models"));
 
 var _userRouter = _interopRequireDefault(require("./router/userRouter"));
 
